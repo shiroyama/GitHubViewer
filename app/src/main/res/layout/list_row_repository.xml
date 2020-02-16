@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhiteSmoke">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        card_view:cardCornerRadius="@dimen/row_repository_card_corner_radius"
+        card_view:cardElevation="@dimen/row_repository_card_elevation"
+        card_view:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/check_in_out_card_padding">
+
+            <ImageView
+                android:id="@+id/owner_thumbnail"
+                android:layout_width="@dimen/row_owner_thumbnail_width"
+                android:layout_height="@dimen/row_owner_thumbnail_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/profile" />
+
+            <TextView
+                android:id="@+id/repository_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold"
+                tools:text="vulture" />
+
+            <TextView
+                android:id="@+id/star_count_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/repository_name"
+                android:layout_marginTop="@dimen/space_small"
+                android:text="★ Star: "
+                android:textColor="@color/textColorStarCount"
+                android:textSize="@dimen/text_size_small"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/star_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/star_count_label"
+                android:layout_marginTop="@dimen/space_small"
+                android:layout_toRightOf="@id/star_count_label"
+                android:textColor="@color/textColorStarCount"
+                android:textSize="@dimen/text_size_small"
+                android:textStyle="bold"
+                tools:text="77" />
+
+            <TextView
+                android:id="@+id/owner_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/star_count_label"
+                android:layout_marginTop="@dimen/space_small"
+                android:textSize="@dimen/text_size_small"
+                tools:text="shiroyama" />
+
+            <TextView
+                android:id="@+id/repository_url"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/owner_name"
+                android:autoLink="all"
+                android:textSize="@dimen/text_size_small"
+                tools:text="https://github.com/shiroyama/vulture" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

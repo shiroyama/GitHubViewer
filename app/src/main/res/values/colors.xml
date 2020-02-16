@@ -3,4 +3,10 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorDarkGray">#a9a9a9</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhiteTransparent">#50FFFFFF</color>
+    <color name="colorWhiteSmoke">#f5f5f5</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="textColorStarCount">@color/colorRed</color>
 </resources>

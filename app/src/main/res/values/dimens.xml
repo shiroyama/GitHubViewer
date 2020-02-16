@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="space_small">4dp</dimen>
+    <dimen name="space_normal">8dp</dimen>
+    <dimen name="space_large">16dp</dimen>
+    <dimen name="search_box_elevation">4dp</dimen>
+    <dimen name="search_box_corner_radius">0dp</dimen>
+    <dimen name="check_in_out_elevation">4dp</dimen>
+    <dimen name="check_in_out_corner_radius">4dp</dimen>
+    <dimen name="check_in_out_card_padding">@dimen/space_normal</dimen>
+    <dimen name="number_picker_card_padding">@dimen/space_normal</dimen>
+    <dimen name="number_picker_card_elevation">4dp</dimen>
+    <dimen name="number_picker_card_corner_radius">4dp</dimen>
+
+    <dimen name="row_repository_card_elevation">4dp</dimen>
+    <dimen name="row_repository_card_corner_radius">4dp</dimen>
+    <dimen name="row_repository_card_padding">@dimen/space_normal</dimen>
+    <dimen name="row_owner_thumbnail_width">50dp</dimen>
+    <dimen name="row_owner_thumbnail_height">50dp</dimen>
+
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+</resources>

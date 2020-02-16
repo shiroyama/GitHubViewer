@@ -5,7 +5,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
@@ -19,10 +19,28 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+final def versionMajor = 0
+final def versionMinor = 1
+final def versionPatch = 0
+
+project.ext {
+    versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
+    versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
+
+    minSdkVersion = 21
+    targetSdkVersion = 28
+    buildToolsVersion = '29.0.0'
+
+    daggerVersion = '2.26'
+    okHttpVersion = '4.3.1'
+    retrofitVersion = '2.7.1'
+    butterKnifeVersion = '10.2.1'
 }

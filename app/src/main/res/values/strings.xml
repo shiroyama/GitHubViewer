@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">GitHubViewer</string>
+
+    <string name="prompt_account">GitHub Account</string>
+    <string name="action_view_repository">View Repositories</string>
+    <string name="error_invalid_account">This account is invalid</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="default_error_while_getting_repositories">Error Occurred!</string>
 </resources>
