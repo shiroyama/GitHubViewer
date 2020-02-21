@@ -215,3 +215,83 @@ getRepositories.execute(
 ```
 
 This is the overall architecture. Do you think it takes a lot of work to do a little thing?　Well, maybe even while the app is small. However, apps grow rapidly and unexpectedly. To have a robust architecture and clean code for your team, it's important to design well first.
+
+## Test
+
+Such an architecture makes writing unit tests easier and helps improve product quality.
+
+### Remote Data Source
+
+I use Retrofit and OkHttp for remote data source, that is, REST API communication. You can use a mock library to stub the return value, but here I use MockWebServer. MockWebServer is a local HTTP server for OkHttp, and can return a response as if it were production.
+
+```Kotlin
+val mockWebServer = MockWebServer()
+
+val dispatcher: Dispatcher =
+    object : Dispatcher() {
+        @Throws(InterruptedException::class)
+        override fun dispatch(request: RecordedRequest): MockResponse {
+            if (request.path == null) {
+                return MockResponse().setResponseCode(400)
+            }
+            if (request.path!!.matches("/users/srym/repos/?.*".toRegex())) {
+                return MockResponse().setBody(readJsonFromResources("users_srym_repos.json")!!)
+                    .setResponseCode(200)
+            }
+        }
+    }
+mockWebServer.dispatcher = dispatcher
+mockWebServer.start()
+val retrofit = Retrofit.Builder()
+    .baseUrl(mockWebServer.url(""))
+    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+    .addConverterFactory(GsonConverterFactory.create(Gson()))
+    .client(OkHttpClient())
+    .build()
+val gitHubService: GitHubService = retrofit.create(GitHubService::class.java)
+restGitHubDataSource = RestGitHubDataSource(gitHubService)
+```
+
+With this preparation, you can actually send a request to the local environment for testing. Since the return value is an RxJava object, wait with `.test().await()` method.
+
+```kotlin
+val repositories: List<RepositoryEntity> = restGitHubDataSource.listRepos("srym")
+    .test()
+    .await()
+    .values()[0]
+
+assertThat(repositories)
+    .isNotEmpty
+    .hasSize(30)
+assertThat(repositories[0].name).isEqualTo("dotfiles")
+```
+
+### Presenter and View
+
+Presenter and View testing are the essence of this architecture. Because View is defined as an interface, it is possible to test without depending on Fragment. When testing, mock the View and set it to the Presenter to verify the interaction between the Presenter and the View.
+
+```kotlin
+private val validator: AccountValidator = spy(AccountValidator())
+private lateinit var view: AccountInputContract.View
+private lateinit var accountInputPresenter: AccountInputPresenter
+
+@Before
+fun setUp() {
+    view = mock()
+    whenever(view.getFragmentContext()).thenReturn(mock())
+    accountInputPresenter = AccountInputPresenter(validator)
+    accountInputPresenter.view = view
+}
+```
+
+In this way, when a user touch event is passed to Presenter, business logic is executed, and it is easy to verify that the result is notified to View.
+
+```kotlin
+@Test
+fun onClickViewRepositoryButton_showError_whenInvalidInput() {
+    accountInputPresenter.onClickViewRepositoryButton("abc@123")
+    verify(view, times(1)).showInputError(eq(R.string.error_invalid_account))
+}
+```
+
+The `verify()` method verifies the callback from the Presenter to the View. After that, you can write tests for all layers by applying such techniques.
