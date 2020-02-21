@@ -43,4 +43,7 @@ project.ext {
     okHttpVersion = '4.3.1'
     retrofitVersion = '2.7.1'
     butterKnifeVersion = '10.2.1'
+
+    assertJVersion = '3.15.0'
+    mockitoVersion = '3.2.4'
 }

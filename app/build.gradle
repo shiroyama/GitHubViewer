@@ -32,6 +32,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -52,9 +58,8 @@ dependencies {
     kaptAndroidTest "com.google.dagger:dagger-android-processor:${project.rootProject.daggerVersion}"
 
     // OkHttp
-    implementation("com.squareup.okhttp3:okhttp:${project.rootProject.okHttpVersion}")
-    implementation("com.squareup.okhttp3:logging-interceptor:${project.rootProject.okHttpVersion}")
-    testImplementation("com.squareup.okhttp3:mockwebserver:${project.rootProject.okHttpVersion}")
+    implementation "com.squareup.okhttp3:okhttp:${project.rootProject.okHttpVersion}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${project.rootProject.okHttpVersion}"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:${project.rootProject.retrofitVersion}"
@@ -79,7 +84,15 @@ dependencies {
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    // JVM Test
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    testImplementation "org.assertj:assertj-core:${project.rootProject.assertJVersion}"
+    testImplementation "org.mockito:mockito-inline:${project.rootProject.mockitoVersion}"
+    testImplementation "com.squareup.okhttp3:mockwebserver:${project.rootProject.okHttpVersion}"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    testImplementation 'org.robolectric:robolectric:4.3'
+
+    // Android Test
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
